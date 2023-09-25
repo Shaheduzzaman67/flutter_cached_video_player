@@ -208,10 +208,33 @@ class CachedVideoPlayerController
         package = null,
         super(CachedVideoPlayerValue(duration: Duration.zero));
 
+  /// Constructs a [VideoPlayerController] playing a network video.
+  ///
+  /// The URI for the video is given by the [dataSource] argument.
+  ///
+  /// **Android only**: The [formatHint] option allows the caller to override
+  /// the video format detection code.
+  ///
+  /// [httpHeaders] option allows to specify HTTP headers
+  /// for the request to the [dataSource].
+  CachedVideoPlayerController.networkUrl(
+      Uri url, {
+        this.formatHint,
+        this.closedCaptionFile,
+        this.videoPlayerOptions,
+        this.httpHeaders = const <String, String>{},
+      })  :
+        dataSource = url.toString(),
+        dataSourceType = DataSourceType.network,
+        package = null,
+        super(CachedVideoPlayerValue(duration: Duration.zero));
+
   /// Constructs a [CachedVideoPlayerController] playing a video from a file.
   ///
   /// This will load the file from the file-URI given by:
   /// `'file://${file.path}'`.
+  ///
+
   CachedVideoPlayerController.file(File file,
       {this.closedCaptionFile, this.videoPlayerOptions})
       : dataSource = 'file://${file.path}',
